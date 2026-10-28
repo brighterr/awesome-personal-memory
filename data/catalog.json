@@ -1,0 +1,389 @@
+{
+  "as_of": "2026-10-28",
+  "scope": "Personal Agentic Memory：长期个人历史、动态偏好、跨平台理解与记忆驱动行动。基于公开原始论文、官方仓库和作者报告；未独立复跑，不宣称穷尽所有方法或存在统一 SOTA。",
+  "benchmarks": [
+    {
+      "name": "LoCoMo",
+      "year": "2024",
+      "group": "历史与事实",
+      "priority": "对照",
+      "task": "跨会话事实、多跳、时间推理；原始任务还包括事件总结和多模态对话生成。",
+      "scale": "官方 locomo10：10 段长对话；常见 QA 评测为 1,540 个非 adversarial 问题。",
+      "metric": "原始 QA 的文本匹配指标与后续 LLM judge accuracy 必须分列。",
+      "limit": "对话数量少；只报四类 QA 不等于完成原始全部任务。",
+      "url": "https://github.com/snap-research/locomo",
+      "summary_en": "Cross-session facts, multi-hop and temporal reasoning; distinguish original metrics from later QA protocols."
+    },
+    {
+      "name": "LongMemEval",
+      "year": "2024 / ICLR 2025",
+      "group": "历史与事实",
+      "priority": "核心",
+      "task": "信息抽取、跨会话推理、时间推理、知识更新、拒答。",
+      "scale": "500 个问题；常用 S 约 115k tokens，M 为更长历史；S/M/oracle 分开。",
+      "metric": "官方按题型设计的 LLM judge；同时报告逐题总体准确率及各类结果。",
+      "limit": "检索证据 Recall@k 与最终 QA accuracy 是不同指标；也不是完整个人行动测试。",
+      "url": "https://arxiv.org/abs/2410.10813",
+      "summary_en": "Long-term facts, temporal changes, updates and abstention; keep S, M and oracle separate.",
+      "resources": [
+        {
+          "label": "Code",
+          "url": "https://github.com/xiaowu0162/LongMemEval",
+          "note": "Official benchmark repository.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        }
+      ]
+    },
+    {
+      "name": "BEAM",
+      "year": "2025 / 2026",
+      "group": "历史与事实",
+      "priority": "扩展",
+      "task": "极长且连贯的对话中的多类记忆能力。",
+      "scale": "100 段对话、2,000 个验证问题，最长 10M tokens。",
+      "metric": "按长度档位和能力分别报告回答分数。",
+      "limit": "合成对话；不要把 100k 与 10M 的结果合并排名。原论文方法为 LIGHT。",
+      "url": "https://arxiv.org/abs/2510.27246",
+      "summary_en": "Conversational memory at extreme history lengths; compare within the same length setting."
+    },
+    {
+      "name": "ConvoMem",
+      "year": "2025",
+      "group": "历史与事实",
+      "priority": "扩展",
+      "task": "个人事实、助手信息、拒答、偏好、时间变化与隐式联系。",
+      "scale": "75,336 个 QA，适合分析历史规模变化。",
+      "metric": "回答质量 + 成本 + 延迟。",
+      "limit": "很适合检验 full context 与检索的转折点；论文中的小历史结论有模型与规模条件。",
+      "url": "https://arxiv.org/abs/2511.10523",
+      "summary_en": "Facts, preferences, temporal changes and implicit connections across conversation history."
+    },
+    {
+      "name": "PrefEval",
+      "year": "2025",
+      "group": "偏好与个性化",
+      "priority": "核心补充",
+      "task": "显式 / 隐式偏好的推断、记忆和主动遵循。",
+      "scale": "3,000 个 preference-query pairs、20 个主题；最长约 100k tokens。",
+      "metric": "分类任务正确率、生成任务偏好遵循。",
+      "limit": "聚焦 preference following；与复杂动态用户画像和实际工具执行互补。",
+      "url": "https://arxiv.org/abs/2502.09597",
+      "summary_en": "Explicit and implicit preference inference and adherence."
+    },
+    {
+      "name": "PersonaMem v1",
+      "year": "2025",
+      "group": "偏好与个性化",
+      "priority": "历史对照",
+      "task": "随时间演化的画像和偏好；选择符合当前用户状态的回复。",
+      "scale": "180+ 模拟历史、每段最多 60 sessions、15 类任务。",
+      "metric": "个性化回复选择准确率。",
+      "limit": "v1 和 v2 不是同一数据集；不能省略版本。",
+      "url": "https://arxiv.org/abs/2504.14225",
+      "summary_en": "Evolving user profiles and personalized response selection.",
+      "resources": [
+        {
+          "label": "Code",
+          "url": "https://github.com/bowen-upenn/PersonaMem",
+          "note": "Official v1 repository; do not assume it implements all v2 settings.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        }
+      ]
+    },
+    {
+      "name": "PersonaMem-v2",
+      "year": "2025",
+      "group": "偏好与个性化",
+      "priority": "核心",
+      "task": "从自然任务对话推断隐式偏好，含动态变化、归属辨别与遗忘请求。",
+      "scale": "1,000 personas；20,000+ 偏好；32k / 128k；benchmark 5,000 QA。",
+      "metric": "MCQ accuracy 与 open-ended judge 分开报告。",
+      "limit": "合成个人历史；32k→2k 的 token 压缩率不等于全生命周期计算降本 16 倍。",
+      "url": "https://arxiv.org/html/2512.06688v1",
+      "summary_en": "Implicit preferences, attribution, changes and forgetting requests; separate MCQ from open-ended scoring."
+    },
+    {
+      "name": "PersonaMem-v3",
+      "year": "2026",
+      "group": "跨平台与行动",
+      "priority": "前沿扩展",
+      "task": "跨平台画像、推荐、过度个性化、agentic tasks 与主动介入时机。",
+      "scale": "以真实互动信号构建时间化的多平台用户世界；提供代码和数据链接。",
+      "metric": "按任务家族报告；同时衡量应行动与应保持沉默的场景。",
+      "limit": "真实信号支撑的构造环境，不等于长期真实用户部署；本次核到论文版本及资源链接。",
+      "url": "https://arxiv.org/html/2608.21381v1",
+      "summary_en": "Cross-platform user evidence, agentic tasks and proactive intervention."
+    },
+    {
+      "name": "Mem2ActBench",
+      "year": "2026",
+      "group": "跨平台与行动",
+      "priority": "核心",
+      "task": "把历史偏好和任务状态用于工具参数补全。",
+      "scale": "2,029 sessions、400 tool-use tasks；主实验筛选了 429 个证据会话。",
+      "metric": "参数 F1、BLEU-1，另有工具指标；主表给定 gold tool。",
+      "limit": "主表不是自由选工具的完整端到端任务成功率；TA 定义与表中数值关系需再核代码。",
+      "url": "https://arxiv.org/html/2601.19935v1",
+      "summary_en": "Historical information used in tool arguments; the main setting supplies the gold tool.",
+      "resources": [
+        {
+          "label": "Code & data",
+          "url": "https://github.com/Cantaloupe-M/Mem2ActBench",
+          "note": "Official benchmark repository.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        }
+      ]
+    },
+    {
+      "name": "LifeBench",
+      "year": "2026",
+      "group": "跨平台与行动",
+      "priority": "多源扩展",
+      "task": "跨长期数字痕迹整合事实、经历、习惯与程序性线索。",
+      "scale": "长周期多源生活模拟；真实先验约束合成。",
+      "metric": "长期、多源证据问答。",
+      "limit": "此处为 arXiv:2603.03781；不要与 DeepMind Life-Bench 或长度遵循 LIFEBench 混淆。",
+      "url": "https://arxiv.org/abs/2603.03781",
+      "summary_en": "Longitudinal, multi-source life traces; specifically arXiv:2603.03781."
+    },
+    {
+      "name": "MemoryCD",
+      "year": "2026",
+      "group": "偏好与个性化",
+      "priority": "推荐扩展",
+      "task": "跨领域评分预测、物品排序、评论总结和评论生成。",
+      "scale": "Amazon 真实历史行为；12 个领域、4 类任务。",
+      "metric": "评分 / 排序 / 文本生成各自指标，不能揉成 QA accuracy。",
+      "limit": "适合个性化推荐与风格迁移，不直接测工具执行。",
+      "url": "https://arxiv.org/html/2603.25973v1",
+      "summary_en": "Cross-domain recommendation and review tasks based on behavioral histories."
+    },
+    {
+      "name": "KnowMe-Bench",
+      "year": "2026",
+      "group": "偏好与个性化",
+      "priority": "理解扩展",
+      "task": "基于自传叙事，测事实、主观状态与原则层面的个人理解。",
+      "scale": "长篇叙事重建成含时间锚点的证据流。",
+      "metric": "分层问题和证据支撑的理解质量。",
+      "limit": "叙事人物与对话用户存在分布差异；适合陪伴 / 深层理解方向。",
+      "url": "https://arxiv.org/abs/2601.04745",
+      "summary_en": "Personal understanding from autobiographical narratives, including subjective perspectives."
+    },
+    {
+      "name": "MemoryAgentBench",
+      "year": "2025 / 2026",
+      "group": "机制与边界",
+      "priority": "诊断",
+      "task": "增量输入下的准确检索、测试时学习、长程理解、选择性遗忘。",
+      "scale": "统一多轮接口，含改编任务和新构造任务。",
+      "metric": "按各任务原生指标分别报告。",
+      "limit": "通用记忆能力诊断；不能单凭总分声称 Personal 场景有效。",
+      "url": "https://arxiv.org/abs/2507.05257",
+      "summary_en": "Incremental retrieval, learning, long-range understanding and selective forgetting."
+    },
+    {
+      "name": "LaMP / LongLaMP",
+      "year": "2023–2024",
+      "group": "机制与边界",
+      "priority": "生成补充",
+      "task": "基于用户历史的个性化分类与生成；LongLaMP 扩展到长文本。",
+      "scale": "LaMP 为 3 类分类 + 4 类生成任务。",
+      "metric": "分类 / 生成任务指标与个性化质量。",
+      "limit": "适合作为 personalized generation 对照，非完整动态记忆生命周期 benchmark。",
+      "url": "https://arxiv.org/abs/2304.11406",
+      "url2": "https://arxiv.org/abs/2407.11016",
+      "summary_en": "Personalized classification and generation; complements memory-lifecycle evaluation."
+    },
+    {
+      "name": "LongMemEval-V2",
+      "year": "2026",
+      "group": "机制与边界",
+      "priority": "场景外邻接",
+      "task": "Web agent 对环境状态、流程、陷阱和前提的经验记忆。",
+      "scale": "451 个人工整理的问题、五类能力。",
+      "metric": "环境经验相关回答质量。",
+      "limit": "重点是 experienced colleague 的环境经验，不能当作原版 Personal chat memory 的简单升级替代。",
+      "url": "https://arxiv.org/abs/2605.12493",
+      "summary_en": "Web-agent experience and environment memory; a different scope from personal-chat LongMemEval.",
+      "resources": [
+        {
+          "label": "Code",
+          "url": "https://github.com/xiaowu0162/LongMemEval-V2",
+          "note": "Official environment-experience benchmark repository.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        }
+      ]
+    }
+  ],
+  "methods": [
+    {
+      "name": "PersonaMem-v2 RL Agentic Memory",
+      "type": "直接个性化证据",
+      "idea": "GRPO 学习顺序压缩与更新一份有界、可读的用户记忆。",
+      "result": "MCQ 55.2%；open-ended 60.7%。",
+      "setting": "Qwen3-4B；32k 历史压到约 2k 记忆；论文 §4.3。",
+      "caveat": "同论文 GRPO 长上下文为 53.8% / 56.0%；只在该设置比较，不能外推为全领域最优。",
+      "url": "https://arxiv.org/html/2512.06688v1",
+      "summary_en": "Learns sequential compression and updates of bounded user memory."
+    },
+    {
+      "name": "Hindsight",
+      "type": "长期 QA 强基线",
+      "idea": "事实、经历、摘要、信念分层；retain / recall / reflect，时间与实体感知检索。",
+      "result": "LongMemEval-S 91.4%；LoCoMo 89.61%。",
+      "setting": "论文 Gemini-3 Pro 回答配置；judge 为 GPT-OSS-120B。S=500 题；论文表 3–4。",
+      "caveat": "论文历史成绩，不冒充当前统一榜第一；同骨干 OSS-20B 对照为 39.0→83.6%，更能说明记忆贡献。",
+      "url": "https://arxiv.org/html/2512.12818v1",
+      "summary_en": "Retain, recall and reflect operations over structured evidence and beliefs.",
+      "resources": [
+        {
+          "label": "Code",
+          "url": "https://github.com/vectorize-io/hindsight",
+          "note": "Current project repository; pin the paper implementation for reproduction.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        }
+      ]
+    },
+    {
+      "name": "EverMemOS",
+      "type": "长期 QA 强基线",
+      "idea": "MemCells → MemScenes → agentic recollection，把片段整合为主题场景并重建证据。",
+      "result": "LoCoMo 93.05%（GPT-4.1-mini）；86.76%（GPT-4o-mini）。",
+      "setting": "同论文 LoCoMo 对照；1,540 题；三 judge 平均，两个辅助 judge 未在该段具名。",
+      "caveat": "优先看同表增益；不可直接与单一 judge 的 93% 比较。LongMemEval 表的基线来自外部榜单。",
+      "url": "https://arxiv.org/html/2601.02163v1",
+      "summary_en": "Memory cells and scenes support organized evidence recollection.",
+      "resources": [
+        {
+          "label": "Current repo",
+          "url": "https://github.com/EverMind-AI/EverOS",
+          "note": "The paper-linked EverMemOS URL redirects to EverOS; current HEAD is not a pinned paper version.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        }
+      ]
+    },
+    {
+      "name": "Mastra Observational Memory",
+      "type": "工程高分候选",
+      "idea": "Observer / Reflector 维护日期化观察日志，形成稳定可缓存上下文。",
+      "result": "LongMemEval-S 94.87%（GPT-5-mini）；84.23%（GPT-4o）。",
+      "setting": "Gemini-2.5-Flash 建记忆；GPT-4o judge；作者报告。",
+      "caveat": "关键：六类题型的未加权宏平均；并非 500 题逐题 micro accuracy。",
+      "url": "https://mastra.ai/research/observational-memory",
+      "summary_en": "Observer and reflector processes maintain compact chronological observations."
+    },
+    {
+      "name": "Mem0 · 2026 temporal update",
+      "type": "工程高分候选",
+      "idea": "提取 / 更新事实，加入时间签名、时态和时间感知排序。",
+      "result": "作者 headline：LoCoMo 92.5%；LongMemEval 94.4%。",
+      "setting": "2026 官方算法 / 时间推理报告；与 2025 原论文配置区分。",
+      "caveat": "后续同页还出现其他检索深度结果；此处保留 headline。该页未充分说明回答模型和 judge，不进入同口径排名。",
+      "url": "https://mem0.ai/blog/introducing-temporal-reasoning-in-mem0",
+      "summary_en": "Time-aware fact updates and retrieval; distinguish product reports from paper settings."
+    },
+    {
+      "name": "Zep · 2026 research page",
+      "type": "工程高分候选",
+      "idea": "时间失效管理 + 多范围图检索和重排，按预算组装上下文。",
+      "result": "作者页面：LoCoMo 94.7%；LongMemEval 90.2%。",
+      "setting": "回答和 judge 均为 GPT-5.4；1,540 / 500 题；页面快照。",
+      "caveat": "页面 LoCoMo 总数与分项加总不一致，先当作待审计自报值；不能等同于开源 Graphiti 单独成绩。",
+      "url": "https://www.getzep.com/research/",
+      "summary_en": "Temporal graph memory and context assembly; product scores are not Graphiti-only scores."
+    },
+    {
+      "name": "Agent Zero Memory",
+      "type": "近期高分待复核",
+      "idea": "事件时间线 + 实体图 + 分层文档记忆；检索保留来源证据。",
+      "result": "作者预印本：LongMemEval 95.60%；LoCoMo 93.60%。",
+      "setting": "分别取最佳配置；LME 的 GPT-5.5 为 95.60%；500 / 1,540 题。",
+      "caveat": "主要与其他系统自报历史结果对比，不是统一骨干与 judge 的重跑；不足以确立统一 SOTA。",
+      "url": "https://arxiv.org/html/2608.29606v1",
+      "summary_en": "Event timelines, entity graphs and hierarchical documents; reported best settings need matched comparisons."
+    },
+    {
+      "name": "A-MEM",
+      "type": "结构化记忆基线",
+      "idea": "Zettelkasten 式笔记、动态链接和记忆演化。",
+      "result": "Mem2ActBench：72B 下参数 F1=35.93，LTMemory=35.32。",
+      "setting": "来自 Mem2ActBench 作者的同一 Qwen2.5-72B 设置，gold tool 已给定。",
+      "caveat": "动作参数场景的强对照；不是 35.93% 完整任务成功率。",
+      "url": "https://arxiv.org/abs/2502.12110",
+      "evidence": "https://arxiv.org/html/2601.19935v1",
+      "summary_en": "Linked notes with evolving memory structure; evaluated on tool arguments in Mem2ActBench.",
+      "resources": [
+        {
+          "label": "System",
+          "url": "https://github.com/agiresearch/A-mem",
+          "note": "Memory library for constructing agents.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        },
+        {
+          "label": "Paper experiments",
+          "url": "https://github.com/WujiangXu/A-mem",
+          "note": "Paper evaluation repository; the former AgenticMemory URL redirects here.",
+          "link_checked_on": "2026-10-28",
+          "check_scope": "Official source linkage and repository page only; no code audit or execution."
+        }
+      ]
+    },
+    {
+      "name": "MAGMA / Memory-R1",
+      "type": "研究型消融候选",
+      "idea": "MAGMA：语义、时间、因果、实体多图检索；Memory-R1：RL 学习增删改和证据选择。",
+      "result": "用于比较图结构与学习式管理两条路线；不强排跨论文总分。",
+      "setting": "均有 LoCoMo / LongMemEval 相关实验。",
+      "caveat": "论文主张与部署配置分开；训练数据、模型、指标一致后再比较。",
+      "url": "https://arxiv.org/abs/2601.03236",
+      "url2": "https://arxiv.org/abs/2508.19828",
+      "summary_en": "MAGMA: multi-graph retrieval. Memory-R1: reinforcement learning for management and evidence selection."
+    },
+    {
+      "name": "AgentMemRec / FlexA-Mem",
+      "type": "2026-10 新作观察",
+      "idea": "前者把选记忆视为推荐排序；后者以不可变历史和预算自适应时间线恢复细节。",
+      "result": "AgentMemRec 报告 LME multi-session 子集增益；FlexA-Mem 强调紧预算及 AppWorld。",
+      "setting": "分别发布于 10 月 26 日和 23 日；本次核对摘要及范围。",
+      "caveat": "最新预印本、不同任务 / 子集；列为跟进对象，不据此宣称 Personal 全局领先。",
+      "url": "https://arxiv.org/abs/2610.34673",
+      "url2": "https://arxiv.org/abs/2610.33274",
+      "summary_en": "AgentMemRec: memory selection as recommendation. FlexA-Mem: budget-adaptive history recovery."
+    },
+    {
+      "name": "PersonaMem-v3 agentic search configurations",
+      "type": "跨平台个性化证据",
+      "idea": "Agent 使用工具在多平台历史中搜索与组合证据。",
+      "result": "论文最佳配置 Claude Opus 4.8 + Claude Code High：53.7% overall。",
+      "setting": "同文 GPT-5.5 Long Context 为 53.4%，Codex High 为 53.2%。",
+      "caveat": "这是模型 + harness 配置比较，不能把差距归因于单独 memory 模块；无单一访问模式全面占优。",
+      "url": "https://arxiv.org/html/2608.21381v1",
+      "summary_en": "Cross-platform search evaluated as model plus harness configurations, not an isolated memory module."
+    },
+    {
+      "name": "Supermemory",
+      "type": "指标口径示例",
+      "idea": "聚合式检索与记忆组织。",
+      "result": "官网标注 LongMemEval-S Recall@20 with aggregation = 97%。",
+      "setting": "500 题；页面同时提及回答 judge，口径需结合完整评测代码确认。",
+      "caveat": "按页面明确标签记录为 Recall@20，不混入 QA accuracy 排名。",
+      "url": "https://supermemory.ai/research/",
+      "summary_en": "Retrieval and memory organization; the cited 97% figure is labelled Recall@20, not QA accuracy."
+    }
+  ],
+  "provenance": {
+    "origin": "Personal Agentic Memory evaluation literature review",
+    "imported_on": "2026-10-28",
+    "evidence_status": "Prior source-review notes; no independent reproductions. This import is not a fresh verification of each source.",
+    "schema_version": 1,
+    "homepage_reference": "https://github.com/Hannibal046/Awesome-LLM"
+  }
+}
