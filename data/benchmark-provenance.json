@@ -1,0 +1,114 @@
+{
+  "as_of": "2026-10-28",
+  "classification_basis": "Origin of the evaluated personal history or behavior; human review alone does not make synthetic data real-user data.",
+  "benchmarks": [
+    {
+      "name": "MemoryCD",
+      "origin": "real",
+      "source": "https://arxiv.org/html/2603.25973v1",
+      "construction_zh": "真人 Amazon 评分、评论与跨领域行为记录；据此构造预测和文本生成任务。",
+      "construction_en": "Real Amazon ratings, reviews and cross-domain histories, reorganized into prediction and generation tasks.",
+      "interpretation_zh": "预测用户评分、排序与评论；并非真人在线满意度实验。",
+      "interpretation_en": "Predicting ratings, rankings and review text; not an online user-satisfaction study."
+    },
+    {
+      "name": "PersonaMem-v3",
+      "origin": "mixed",
+      "source": "https://arxiv.org/html/2608.21381v1",
+      "construction_zh": "真人行为先聚合、重采样为合成用户，再由 LLM 推断偏好并扩展多平台生活记录。",
+      "construction_en": "Real engagement data are pooled and resampled into synthetic users, then expanded into personas and multi-platform histories by an LLM.",
+      "interpretation_zh": "行为依据上的个性化；不能视作原始真人完整生活轨迹。",
+      "interpretation_en": "Personalization grounded in behavioral signals, not untouched individual life histories."
+    },
+    {
+      "name": "PrefEval",
+      "origin": "mixed",
+      "source": "https://arxiv.org/html/2502.09597v1",
+      "construction_zh": "LLM 生成偏好与问题，经人工筛选；插入真实 LMSYS 聊天作为干扰。核心用户偏好是合成的。",
+      "construction_en": "LLM-generated preferences and queries, human-filtered, with real LMSYS chats as distractors. Target preferences are synthetic.",
+      "interpretation_zh": "长历史中的偏好遵循；真实干扰不代表同一真人的历史。",
+      "interpretation_en": "Preference adherence across long contexts; real distractors are not one real user history."
+    },
+    {
+      "name": "Mem2ActBench",
+      "origin": "mixed",
+      "source": "https://arxiv.org/html/2601.19935v1",
+      "construction_zh": "整合 ToolACE、BFCL、OASST1 等不同来源语料，重组事实链；先定工具参数，再反向生成问题。",
+      "construction_en": "Combines ToolACE, BFCL and OASST1 material into fact chains; constructs grounded tool arguments before generating underspecified queries.",
+      "interpretation_zh": "个人约束驱动的参数补全；主要实验给定工具，不是实际执行成功率。",
+      "interpretation_en": "Memory-grounded argument completion; main experiments supply the tool and do not measure executed task success."
+    },
+    {
+      "name": "PersonaBench",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2502.20616v1",
+      "construction_zh": "合成人设 → 社交图与画像 → 聊天、购买等私人文档 → 个人问题。",
+      "construction_en": "Synthetic persona seeds → social graphs and profiles → private documents → personal questions.",
+      "interpretation_zh": "从文档还原个人属性及关系。",
+      "interpretation_en": "Recovering personal attributes and relationships from documents."
+    },
+    {
+      "name": "PersonaMem v1",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2504.14225v1",
+      "construction_zh": "PersonaHub 人设 → 偏好变化时间线 → 模拟会话 → 按当前状态出题。",
+      "construction_en": "PersonaHub seeds → preference timelines → simulated sessions → questions about the current state.",
+      "interpretation_zh": "追踪并使用当前有效的个人偏好。",
+      "interpretation_en": "Tracking and using currently valid user preferences."
+    },
+    {
+      "name": "PersonaMem-v2",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2512.06688v1",
+      "construction_zh": "合成人设与偏好 → 隐含线索对话 → QA；GPT-5 生成并过滤。",
+      "construction_en": "Synthetic personas and preferences → implicit-cue conversations → QA; generated and filtered with GPT-5.",
+      "interpretation_zh": "隐含偏好理解、归属辨别与个性化回答。",
+      "interpretation_en": "Implicit preference inference, attribution and personalized responses."
+    },
+    {
+      "name": "PerMemBench",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2605.25535v1",
+      "construction_zh": "Nemotron 合成人设 → 长期/临时用途 → 项目与参考记忆 → 双模拟器对话。",
+      "construction_en": "Synthetic Nemotron personas → long-horizon/transient use profiles → projects and reference memories → simulated dialogues.",
+      "interpretation_zh": "应保留的个人记忆留存率；不是最终回答质量。",
+      "interpretation_en": "Retention of designated useful personal memories, not final answer quality."
+    },
+    {
+      "name": "AMemGym",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2603.01966v1",
+      "construction_zh": "合成人设 → 评估问题 → 状态变量及变化 → 用户模拟器与被测助手实时交互。",
+      "construction_en": "Synthetic personas → evaluation questions → evolving state variables → live interaction with a simulated user.",
+      "interpretation_zh": "持续交互中的状态维护；真人并未参与这些评测交互。",
+      "interpretation_en": "State maintenance in ongoing interaction; evaluation users are simulated."
+    },
+    {
+      "name": "PraxisMemBench",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2610.20022v1",
+      "construction_zh": "合成人设和事件，结合工程师搭建的有状态应用、SOP 与经过执行验证的任务。",
+      "construction_en": "Synthetic personas and events combined with engineered stateful applications, SOPs and execution-validated tasks.",
+      "interpretation_zh": "个人记忆与流程结合；须区分记忆诊断 SR 和严格执行成功。",
+      "interpretation_en": "Coupled personal/procedural memory; diagnostic SR and strict execution success must be distinguished."
+    },
+    {
+      "name": "OP-Bench",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2601.13722v2",
+      "construction_zh": "以 LoCoMo 的合成对话抽画像，再生成过度个性化探针，经人工审核筛选。",
+      "construction_en": "Extracts profiles from synthetic LoCoMo conversations, then generates and human-reviews over-personalization probes.",
+      "interpretation_zh": "无关引用、重复与迎合的压力测试。",
+      "interpretation_en": "Stress testing irrelevant references, repetition and sycophancy."
+    },
+    {
+      "name": "PersistBench",
+      "origin": "synthetic",
+      "source": "https://arxiv.org/html/2602.01146v1",
+      "construction_zh": "生成记忆集合与查询，用搜索寻找易触发失败的组合，再人工验证。",
+      "construction_en": "Generates memory-query pairs, searches for failure-inducing combinations, then verifies them with human reviewers.",
+      "interpretation_zh": "记忆误用压力测试；失败率不代表自然使用中的发生率。",
+      "interpretation_en": "Memory-misuse stress testing; failure rates are not natural-use prevalence."
+    }
+  ]
+}

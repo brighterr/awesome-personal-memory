@@ -18,6 +18,7 @@ Evidence snapshot: **2026-10-28** · **15 benchmark families** · **12 method/co
 ## Contents
 
 - [Scope](#scope)
+- [Benchmark Data Provenance](#benchmark-data-provenance)
 - [Benchmarks](#benchmarks)
 - [Research Methods](#research-methods)
 - [Systems and Implementations](#systems-and-implementations)
@@ -40,6 +41,29 @@ We distinguish personal outcomes (preferences, profiles, actions), supporting me
 [Three-page visual guide](docs/visual-guide.md) · [Editable draw.io](assets/personal-memory-eval.drawio)
 
 </details>
+
+## Benchmark Data Provenance
+
+**Check the data origin before reading scores.** Classify the evaluated personal histories or behaviors as **real-user**, **synthetic**, or **mixed**. For mixed data, the table specifies what the real material actually contributes.
+
+**Human review does not make synthetic data real. Live simulator interaction is not human interaction. Real-data seeds are not untouched individual histories.** This table covers 12 reviewed personal-evaluation datasets; other entries are not classified by name alone.
+
+| Benchmark | Real or synthetic? | How the data are constructed | What scores primarily reflect |
+| --- | --- | --- | --- |
+| [MemoryCD](https://arxiv.org/html/2603.25973v1) | **Real-user data** | Real Amazon ratings, reviews and cross-domain histories, reorganized into prediction and generation tasks. | Predicting ratings, rankings and review text; not an online user-satisfaction study. |
+| [PersonaMem-v3](https://arxiv.org/html/2608.21381v1) | **Mixed data** | Real engagement data are pooled and resampled into synthetic users, then expanded into personas and multi-platform histories by an LLM. | Personalization grounded in behavioral signals, not untouched individual life histories. |
+| [PrefEval](https://arxiv.org/html/2502.09597v1) | **Mixed data** | LLM-generated preferences and queries, human-filtered, with real LMSYS chats as distractors. Target preferences are synthetic. | Preference adherence across long contexts; real distractors are not one real user history. |
+| [Mem2ActBench](https://arxiv.org/html/2601.19935v1) | **Mixed data** | Combines ToolACE, BFCL and OASST1 material into fact chains; constructs grounded tool arguments before generating underspecified queries. | Memory-grounded argument completion; main experiments supply the tool and do not measure executed task success. |
+| [PersonaBench](https://arxiv.org/html/2502.20616v1) | **Synthetic data** | Synthetic persona seeds → social graphs and profiles → private documents → personal questions. | Recovering personal attributes and relationships from documents. |
+| [PersonaMem v1](https://arxiv.org/html/2504.14225v1) | **Synthetic data** | PersonaHub seeds → preference timelines → simulated sessions → questions about the current state. | Tracking and using currently valid user preferences. |
+| [PersonaMem-v2](https://arxiv.org/html/2512.06688v1) | **Synthetic data** | Synthetic personas and preferences → implicit-cue conversations → QA; generated and filtered with GPT-5. | Implicit preference inference, attribution and personalized responses. |
+| [PerMemBench](https://arxiv.org/html/2605.25535v1) | **Synthetic data** | Synthetic Nemotron personas → long-horizon/transient use profiles → projects and reference memories → simulated dialogues. | Retention of designated useful personal memories, not final answer quality. |
+| [AMemGym](https://arxiv.org/html/2603.01966v1) | **Synthetic data** | Synthetic personas → evaluation questions → evolving state variables → live interaction with a simulated user. | State maintenance in ongoing interaction; evaluation users are simulated. |
+| [PraxisMemBench](https://arxiv.org/html/2610.20022v1) | **Synthetic data** | Synthetic personas and events combined with engineered stateful applications, SOPs and execution-validated tasks. | Coupled personal/procedural memory; diagnostic SR and strict execution success must be distinguished. |
+| [OP-Bench](https://arxiv.org/html/2601.13722v2) | **Synthetic data** | Extracts profiles from synthetic LoCoMo conversations, then generates and human-reviews over-personalization probes. | Stress testing irrelevant references, repetition and sycophancy. |
+| [PersistBench](https://arxiv.org/html/2602.01146v1) | **Synthetic data** | Generates memory-query pairs, searches for failure-inducing combinations, then verifies them with human reviewers. | Memory-misuse stress testing; failure rates are not natural-use prevalence. |
+
+Based on paper/appendix descriptions, not a record-level audit of every released dataset. Reviewed 2026-10-28. Structured records: [benchmark-provenance.json](data/benchmark-provenance.json).
 
 ## Benchmarks
 
